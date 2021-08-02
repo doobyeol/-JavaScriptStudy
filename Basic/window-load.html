@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <scirpt src="test.js" defer></scirpt>
+</head>
+
+<body>
+    <script>
+        // only document -> HTML 로드 후 실행
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('load');
+        });
+
+        // after resources -> (css, images... ) 로드 후 실행
+        window.addEventListener('load', () => {
+            console.log('load');
+        });
+        // before unload
+        window.addEventListener('beforeload', () => {
+            console.log('beforeload');
+        });
+        // resourece is being unloaded
+        window.addEventListener('unload', () => {
+            console.log('unload');
+        });
+    </script>
+</body>
+
+</html>
