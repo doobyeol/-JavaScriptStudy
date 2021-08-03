@@ -145,3 +145,43 @@ console.log(person); // Person { name: 'Lee', gender: 'male', sayHello: [Functio
 
 console.log(person.gender);  // 'male'
 console.log(person.married); // undefined
+
+/* 프로퍼티 키
+일반적으로 문자열(빈 문자열 포함)을 지정
+프로퍼티 키는 문자열이므로 따옴표(‘’ 또는 ““)를 사용한다.
+*/
+
+// 프로퍼티 값은 모든 값과 표현식이 올 수 있으며 프로퍼티 값이 함수인 경우 이를 메소드라 한다.
+var person = {
+    'first-name': 'Ung-mo',
+    'last-name': 'Lee',
+    gender: 'male',
+    1: 10,
+    function: 1 // OK. 하지만 예약어는 사용하지 말아야 한다.
+};
+
+console.log(person);
+
+// 표현식을 프로퍼티 키로 사용하려면 키로 사용할 표현식을 대괄호로 묶어야 한다.
+var person = {
+    [first - name]: 'Ung-mo', // ReferenceError: first is not defined
+    // 자바스크립트 엔진은 표현식을 평가하기 위해 식별자 first를 찾을 것이고 이때 ReferenceError가 발생
+};
+
+/*  예상치 못한 에러가 발생할 수 있으므로 예약어를 프로퍼티 키로 사용해서는 않된다.
+abstract  arguments boolean break byte
+case  catch char  class*  const
+continue  debugger  default delete  do
+double  else  enum* eval  export*
+extends*  false final finally float
+for function  goto  if  implements
+import* in  instanceof  int interface
+let long  native  new null
+package private protected public  return
+short static  super*  switch  synchronized
+this  throw throws  transient true
+try typeof  var void  volatile
+while with  yield
+*는 ES6에서 추가된 예약어
+*/
+
