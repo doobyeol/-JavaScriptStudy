@@ -25,3 +25,54 @@
 => 객체에 제한되어 있는 함수
 */
 
+/* 객체 생성 방법
+자바 : 클래스 기반 객체 지향 언어 -> 클래스 정의 , new 연산자를 사용하여 인스턴스를 생성하는 방식
+자바스크립트 : 프로토타입 기반 객체 지향 언어 -> 클래스라는 개념이 없고 별도의 객체 생성 방법이 존재
+(ECMAScript 6에서 새롭게 클래스가 도입됨)
+*/
+
+/* 객체 리터럴
+가장 일반적인 자바스크립트의 객체 생성 방식
+*/
+
+var emptyObject = {};
+console.log(typeof emptyObject); // object
+
+var person = {
+    name: 'Lee',
+    gender: 'male',
+    sayHello: function () {
+        console.log('Hi! My name is ' + this.name);
+    }
+};
+
+console.log(typeof person); // object
+console.log(person); // {name: "Lee", gender: "male", sayHello: ƒ}
+
+person.sayHello(); // Hi! My name is Lee
+
+/* Object 생성자 함수
+new 연산자와 Object 생성자 함수를 호출하여 빈 객체를 생성
+=> 빈 객체 생성 이후 프로퍼티 또는 메소드를 추가하여 객체를 완성하는 방법
+
+생성자(constructor) 함수란?
+=> new 키워드와 함께 객체를 생성하고 초기화하는 함수
+=> 생성자 함수를 통해 생성된 객체를 인스턴스(instance)라 한다
+
+객체가 소유하고 있지 않은 프로퍼티 키에 값을 할당하면 해당 객체에 프로퍼티를 추가하고 값을 할당한다. 
+이미 존재하는 프로퍼티 키에 새로운 값을 할당하면 프로퍼티 값은 할당한 값으로 변경된다.
+*/
+
+// 빈 객체의 생성
+var person = new Object();
+// 프로퍼티 추가
+person.name = 'Lee';
+person.gender = 'male';
+person.sayHello = function () {
+    console.log('Hi! My name is ' + this.name);
+};
+
+console.log(typeof person); // object
+console.log(person); // {name: "Lee", gender: "male", sayHello: ƒ}
+
+person.sayHello(); // Hi! My name is Lee
