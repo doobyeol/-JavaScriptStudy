@@ -209,7 +209,7 @@ console.log(person['gender']); // 'male'
 
 console.log(person['1']); // 10
 console.log(person[1]);   // 10 : person[1] -> person['1']
-console.log(person.1);    // SyntaxError
+//console.log(person.1);    // SyntaxError
 
 // 프로퍼티 키가 유효한 자바스크립트 이름이고 예약어가 아닌 경우 프로퍼티 값은 마침표 표기법, 대괄호 표기법 모두 사용할 수 있다.
 // 대괄호 내에 들어가는 프로퍼티 이름은 반드시 문자열이어야 한다.
