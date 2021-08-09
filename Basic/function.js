@@ -281,9 +281,96 @@ function sum() {
 
 console.log(sum(1, 2, 3, 4, 5)); // 15
 
-/*
-
+/* caller 프로퍼티
+caller 프로퍼티는 자신을 호출한 함수를 의미한다.
 */
+function foo(func) {
+    var res = func();
+    return res;
+}
+
+function bar() {
+    return 'caller : ' + bar.caller;
+}
+
+console.log(foo(bar)); // caller : function foo(func) {...}
+console.log(bar());    // null (browser에서의 실행 결과)
+
+/* length 프로퍼티
+length 프로퍼티는 함수 정의 시 작성된 매개변수 갯수를 의미한다.
+*/
+function foo() { }
+console.log(foo.length); // 0
+
+function bar(x) {
+    return x;
+}
+console.log(bar.length); // 1
+
+function baz(x, y) {
+    return x * y;
+}
+console.log(baz.length); // 2
+
+/* name 프로퍼티
+함수명을 나타낸다. 기명함수의 경우 함수명을 값으로 갖고 익명함수의 경우 빈문자열을 값으로 갖는다.
+*/
+// 기명 함수 표현식(named function expression)
+var namedFunc = function multiply(a, b) {
+    return a * b;
+};
+// 익명 함수 표현식(anonymous function expression)
+var anonymousFunc = function (a, b) {
+    return a * b;
+};
+
+console.log(namedFunc.name);     // multiply
+console.log(anonymousFunc.name); // ''
+
+/*  __proto__ 접근자 프로퍼티
+__proto__ 프로퍼티는 [[Prototype]] 내부 슬롯이
+가리키는 프로토타입 객체에 접근하기 위해 사용하는 접근자 프로퍼티이다.
+
+모든 객체는 [[Prototype]]이라는 내부 슬롯이 있다.
+[[Prototype]] 내부 슬롯은 프로토타입 객체를 가리킨다.
+프로토타입 객체란 프로토타입 기반 객체 지향 프로그래밍의
+근간을 이루는 객체로서 객체간의 상속(Inheritance)을 구현하기 위해 사용
+=> 프로토타입 객체는 다른 객체에 공유 프로퍼티를 제공하는 객체
+
+내부 슬롯에는 직접 접근할 수 없고 간접적인 접근 방법을 제공하는 경우에 한하여 접근할 수 있다. 
+[[Prototype]] 내부 슬롯에도 직접 접근할 수 없으며
+__proto__ 접근자 프로퍼티를 통해 간접적으로 프로토타입 객체에 접근할 수 있다.
+*/
+
+// 객체 리터럴로 셍성한 객체의 프로토타입 객체는 Object.prototype이다.
+console.log({}.__proto__ === Object.prototype); // true
+
+// __proto__ 프로퍼티는 객체가 직접 소유하는 프로퍼티가 아니라 모든 객체의 프로토타입 객체인 Object.prototype 객체의 프로퍼티이다. 
+
+// 객체는 __proto__ 프로퍼티를 소유하지 않는다.
+console.log(Object.getOwnPropertyDescriptor({}, '__proto__'));
+// undefined
+
+// __proto__ 프로퍼티는 모든 객체의 프로토타입 객체인 Object.prototype의 접근자 프로퍼티이다.
+console.log(Object.getOwnPropertyDescriptor(Object.prototype, '__proto__'));
+// {get: ƒ, set: ƒ, enumerable: false, configurable: true}
+
+// 모든 객체는 Object.prototype의 접근자 프로퍼티 __proto__를 상속받아 사용할 수 있다.
+console.log({}.__proto__ === Object.prototype); // true
+
+// 함수도 객체이므로 __proto__ 접근자 프로퍼티를 통해 프로토타입 객체에 접근할 수 있다.
+console.log((function () { }).__proto__ === Function.prototype); // true
+
+/* prototype 프로퍼티
+prototype 프로퍼티는 함수 객체만이 소유하는 프로퍼티이다. 즉 일반 객체에는 prototype 프로퍼티가 없다.
+*/
+// 함수 객체는 prototype 프로퍼티를 소유한다.
+console.log(Object.getOwnPropertyDescriptor(function () { }, 'prototype'));
+// {value: {…}, writable: true, enumerable: false, configurable: false}
+
+// 일반 객체는 prototype 프로퍼티를 소유하지 않는다.
+console.log(Object.getOwnPropertyDescriptor({}, 'prototype'));
+// undefined
 
 /*
 
