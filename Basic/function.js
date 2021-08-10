@@ -372,6 +372,29 @@ console.log(Object.getOwnPropertyDescriptor(function () { }, 'prototype'));
 console.log(Object.getOwnPropertyDescriptor({}, 'prototype'));
 // undefined
 
+/* 함수의 다양한 형태 */
+
+
+/* 즉시 실행 함수
+
+*/
+
+/*
+
+*/
+
+/*
+
+*/
+
+/*
+
+*/
+
+/*
+
+*/
+
 /*
 
 */
