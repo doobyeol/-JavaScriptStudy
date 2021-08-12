@@ -396,9 +396,9 @@ console.log(Object.getOwnPropertyDescriptor({}, 'prototype'));
 
 // SyntaxError: Unexpected token (
 // 함수선언문은 자바스크립트 엔진에 의해 함수 몸체를 닫는 중괄호 뒤에 ;가 자동 추가된다.
-function () {
-    // ...
-} (); // => };();
+// function () {
+//     // ...
+// } (); // => };();
 
 // 따라서 즉시 실행 함수는 소괄호로 감싸준다.
 (function () {
@@ -470,16 +470,42 @@ console.log(factorial(5)); // 120
 console.log(factorial(6)); // 720
 
 // 재귀 함수는 자신을 무한히 연쇄 호출하므로 호출을 멈출 수 있는 탈출 조건을 반드시 만들어야 한다. 
+// 재귀 함수는 반복 연산을 간단히 구현할 수 있다는 장점이 있지만 무한 반복에 빠질 수 있음 주의
 // 탈출 조건이 없는 경우, 함수가 무한 호출되어 stackoverflow 에러가 발생
+// 대부분의 재귀 함수는 for나 while 문으로 구현이 가능
+// 반복문보다 재귀 함수를 통해 보다 직관적으로 이해하기 쉬운 구현이 가능한 경우에만 한정적으로 적용
 
-/*
-
+/* 콜백 함수
+함수를 명시적으로 호출하는 방식이 아니라 특정 이벤트가 발생했을 때 시스템에 의해 호출되는 함수
+대표적인 예는 이벤트 핸들러 처리
 */
 
-/*
+// 콜백 함수는 매개변수를 통해 전달되고 전달받은 함수의 내부에서 어느 특정시점에 실행
+var button = document.getElementById('myButton');
+button.addEventListener('click', function () {
+    console.log('button clicked!');
+});
 
-*/
+// setTimeout()의 콜백 함수 => 
+// 두번째 매개변수에 전달된 시간이 경과되면 첫번째 매개변수에 전달한 콜백 함수가 호출
+setTimeout(function () {
+    console.log('1초 후 출력된다.');
+}, 1000);
 
-/*
+// 콜백 함수는 주로 비동기식 처리 모델에 사용된다.
+// 비동기식 처리 모델이란 처리가 종료하면 
+// 호출될 콜백함수를 미리 매개변수에 전달하고 
+// 처리가 종료하면 콜백함수를 호출하는 것
 
-*/
+// 콜백함수는 콜백 큐에 들어가 있다가 해당 이벤트가 발생하면 호출
+// 콜백 함수는 클로저이므로 콜백 큐에 단독으로 존재하다가 호출되어도 
+// 콜백함수를 전달받은 함수의 변수에 접근할 수 있다.
+
+function doSomething() {
+    var name = 'Lee';
+
+    setTimeout(function () {
+        console.log('My name is ' + name);
+    }, 100);
+}
+doSomething(); // My name is Lee
