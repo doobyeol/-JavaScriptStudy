@@ -40,10 +40,62 @@ console.log(student.__proto__ === Object.prototype); // true
 
 // __proto__ 프로퍼티에 접근하면 내부적으로 Object.getPrototypeOf가 호출되어 프로토타입 객체를 반환
 // student 객체는 __proto__ 프로퍼티로 자신의 부모 객체(프로토타입 객체)인 Object.prototype을 가리키고 있다.
+function Person(name) {
+    this.name = name;
+}
 
-/* */
-/* */
-/* */
-/* */
-/* */
-/* */
+var foo = new Person('Lee');
+
+console.dir(Person); // prototype 프로퍼티가 있다.
+console.dir(foo);    // prototype 프로퍼티가 없다.
+
+console.log(Person.__proto__ === Function.prototype)
+
+console.log(Person.prototype === foo.__proto__);
+
+function Person(name) {
+    this.name = name;
+}
+
+var foo = new Person('Lee');
+
+// Person() 생성자 함수에 의해 생성된 객체를 생성한 객체는 Person() 생성자 함수이다.
+console.log(Person.prototype.constructor === Person);
+
+// foo 객체를 생성한 객체는 Person() 생성자 함수이다.
+console.log(foo.constructor === Person);
+
+// Person() 생성자 함수를 생성한 객체는 Function() 생성자 함수이다.
+console.log(Person.constructor === Function);
+
+var student = {
+    name: 'Lee',
+    score: 90
+}
+
+// Object.prototype.hasOwnProperty()
+console.log(student.hasOwnProperty('name')); // true
+
+var student = {
+    name: 'Lee',
+    score: 90
+}
+console.dir(student);
+console.log(student.hasOwnProperty('name')); // true
+console.log(student.__proto__ === Object.prototype); // true
+console.log(Object.prototype.hasOwnProperty('hasOwnProperty')); // true
+
+var person = {
+    name: 'Lee',
+    gender: 'male',
+    sayHello: function () {
+        console.log('Hi! my name is ' + this.name);
+    }
+};
+
+console.dir(person);
+
+console.log(person.__proto__ === Object.prototype);   // ① true
+console.log(Object.prototype.constructor === Object); // ② true
+console.log(Object.__proto__ === Function.prototype); // ③ true
+console.log(Function.prototype.__proto__ === Object.prototype); // ④ true
