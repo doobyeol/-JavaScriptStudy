@@ -99,3 +99,127 @@ console.log(person.__proto__ === Object.prototype);   // ① true
 console.log(Object.prototype.constructor === Object); // ② true
 console.log(Object.__proto__ === Function.prototype); // ③ true
 console.log(Function.prototype.__proto__ === Object.prototype); // ④ true
+
+
+var square = function (number) {
+    return number * number;
+};
+
+var square = function square(number) {
+    return number * number;
+};
+
+function Person(name, gender) {
+    this.name = name;
+    this.gender = gender;
+    this.sayHello = function () {
+        console.log('Hi! my name is ' + this.name);
+    };
+}
+
+var foo = new Person('Lee', 'male');
+
+console.dir(Person);
+console.dir(foo);
+
+console.log(foo.__proto__ === Person.prototype);                // ① true
+console.log(Person.prototype.__proto__ === Object.prototype);   // ② true
+console.log(Person.prototype.constructor === Person);           // ③ true
+console.log(Person.__proto__ === Function.prototype);           // ④ true
+console.log(Function.prototype.__proto__ === Object.prototype); // ⑤ true
+
+function Person(name) {
+    this.name = name;
+}
+
+var foo = new Person('Lee');
+
+Person.prototype.sayHello = function () {
+    console.log('Hi! my name is ' + this.name);
+};
+
+foo.sayHello();
+
+var str = 'test';
+console.log(typeof str);                 // string
+console.log(str.constructor === String); // true
+console.dir(str);                        // test
+
+var strObj = new String('test');
+console.log(typeof strObj);                 // object
+console.log(strObj.constructor === String); // true
+console.dir(strObj);
+// {0: "t", 1: "e", 2: "s", 3: "t", length: 4, __proto__: String, [[PrimitiveValue]]: "test" }
+
+console.log(str.toUpperCase());    // TEST
+console.log(strObj.toUpperCase()); // TEST
+
+var str = 'test';
+
+// 에러가 발생하지 않는다.
+str.myMethod = function () {
+    console.log('str.myMethod');
+};
+
+str.myMethod(); // Uncaught TypeError: str.myMethod is not a function
+
+var str = 'test';
+
+String.prototype.myMethod = function () {
+    return 'myMethod';
+};
+
+console.log(str.myMethod());      // myMethod
+console.log('string'.myMethod()); // myMethod
+console.dir(String.prototype);
+
+var str = 'test';
+
+String.prototype.myMethod = function () {
+    return 'myMethod';
+}
+
+console.log(str.myMethod());
+console.dir(String.prototype);
+
+console.log(str.__proto__ === String.prototype);                 // ① true
+console.log(String.prototype.__proto__ === Object.prototype);   // ② true
+console.log(String.prototype.constructor === String);            // ③ true
+console.log(String.__proto__ === Function.prototype);            // ④ true
+console.log(Function.prototype.__proto__ === Object.prototype); // ⑤ true
+
+function Person(name) {
+    this.name = name;
+}
+
+var foo = new Person('Lee');
+
+// 프로토타입 객체의 변경
+Person.prototype = { gender: 'male' };
+
+var bar = new Person('Kim');
+
+console.log(foo.gender); // undefined
+console.log(bar.gender); // 'male'
+
+console.log(foo.constructor); // ① Person(name)
+console.log(bar.constructor); // ② Object()
+
+function Person(name) {
+    this.name = name;
+}
+
+Person.prototype.gender = 'male'; // ①
+
+var foo = new Person('Lee');
+var bar = new Person('Kim');
+
+console.log(foo.gender); // ① 'male'
+console.log(bar.gender); // ① 'male'
+
+// 1. foo 객체에 gender 프로퍼티가 없으면 프로퍼티 동적 추가
+// 2. foo 객체에 gender 프로퍼티가 있으면 해당 프로퍼티에 값 할당
+foo.gender = 'female';   // ②
+
+console.log(foo.gender); // ② 'female'
+console.log(bar.gender); // ① 'male'
